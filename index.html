@@ -66,29 +66,26 @@
     }
 </style>
 <img src="#" alt="cats"/><br>
-<form action="/action_page.php">
+<form action="javascript:;" onsubmit="findImage(this)">
     <input class="search-box" type="text" placeholder="Search gifs.." name="search"><br>
     <input class="search-btn" type="button" value="Search" onclick="findImage()">
 </form>
 <div id="error"></div>
 <script>
-  function findImage() {
+  function findImage () {
     let searchTerm = document.querySelector('.search-box').value
     if (searchTerm === '') {searchTerm = 'cats'}
     const img = document.querySelector('img')
     fetch(`https://api.giphy.com/v1/gifs/translate?api_key=K9jtB3NgQ27WcC2MYyn8D9wqZma9MbEy&s=${searchTerm}`,
-      { mode: 'cors' })
-      .then(function (response) {
-        return response.json()
-      })
-      .then(function (response) {
-        img.src = response.data.images.original.url
-      })
-      .catch(error => {
-        console.log(error)
-        const errorDiv = document.getElementById('error')
-        errorDiv.textContent = error
-      })
+      { mode: 'cors' }).then(function (response) {
+      return response.json()
+    }).then(function (response) {
+      img.src = response.data.images.original.url
+    }).catch(error => {
+      console.log(error)
+      const errorDiv = document.getElementById('error')
+      errorDiv.textContent = error
+    })
   }
 
   findImage()
